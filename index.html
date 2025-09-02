@@ -1,56 +1,60 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Abur Cubur Diyet — Seç</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abur Cubur Diyet — Seç</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="index">
 
-<header class="topbar">
-  <div class="brand">
-    <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
-      <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="9.5" cy="10" r="0.9" fill="#ff7fb1"/>
-      <circle cx="14.5" cy="10" r="0.9" fill="#ff7fb1"/>
-    </svg>
-    <div>
-      <h1>Abur Cubur Diyet</h1>
-      <div class="subtitle">Tatlı & modern — dengeli izinler</div>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
+        <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9.5" cy="10" r="0.9" fill="#ff7fb1"/>
+        <circle cx="14.5" cy="10" r="0.9" fill="#ff7fb1"/>
+      </svg>
+      <div>
+        <h1>Abur Cubur Diyet</h1>
+        <div class="subtitle">Tatlı & modern — dengeli izinler</div>
+      </div>
     </div>
-  </div>
 
-  <nav class="navbar">
-    <a href="index.html" class="nav-link">Ana Sayfa</a>
-    <a href="#" class="nav-link" id="howItWorks">Nasıl Çalışır?</a>
-  </nav>
-</header>
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">Ana Sayfa</a>
+      <a href="#" class="nav-link" id="howItWorks">Nasıl Çalışır?</a>
+    </nav>
+  </header>
 
-<main class="container">
-  <section class="panel plan-panel">
-    <h2>Planını seç</h2>
-    <div class="plans">
-      <button class="plan-card" data-plan="saf">
-        <div class="icon">🍓</div>
-        <h3>Tamamen Şekersiz</h3>
-        <p>Her gün şeker yoksa tikle. Motivasyon ve streakler.</p>
-      </button>
+  <main class="container">
+    <section class="panel plan-panel">
+      <h2>Planını seç</h2>
+      <div class="plans">
+        <button class="plan-card" data-plan="saf">
+          <div class="icon">🍓</div>
+          <div class="plan-head">
+            <h3>Tamamen Şekersiz</h3>
+            <p class="plan-desc">Her gün şekerden kaçın. Günlük takvimde \"şeker yok\" olarak işaretle; streak ve başarı oranını takip et.</p>
+          </div>
+        </button>
 
-      <button class="plan-card" data-plan="izinli">
-        <div class="icon">🍦</div>
-        <h3>İzinli (Kontrollü)</h3>
-        <p>Örn: haftada 3 dondurma, 1 çikolata, 2 haftada 1 cips.</p>
-      </button>
-    </div>
-    <p class="hint">Seçim yaptıktan sonra ilgili sayfaya yönlendirileceksin. Bu seçim localStorage'a kaydedilir.</p>
-  </section>
-</main>
+        <button class="plan-card" data-plan="izinli">
+          <div class="icon">🍦</div>
+          <div class="plan-head">
+            <h3>İzinli (Kontrollü)</h3>
+            <p class="plan-desc">Haftalık/iki haftalık izinlerle dengeli tüketim: örn. haftada 3 dondurma, 1 çikolata, iki haftada 1 cips.</p>
+          </div>
+        </button>
+      </div>
+      <p class="hint">Seçim yaptıktan sonra ilgili sayfaya yönlendirileceksin. Bu seçim localStorage'a kaydedilir.</p>
+    </section>
+  </main>
 
-<footer class="footer">Made with 🧁 — Kişisel kullanım için</footer>
+  <footer class="footer">Made with 🧁 — Kişisel kullanım için</footer>
 
-<script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,47 +1,67 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Abur Cubur Diyet — İzinli</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abur Cubur Diyet — İzinli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="izinli">
 
-<header class="topbar">
-  <div class="brand">
-    <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
-      <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div>
-      <h1>Abur Cubur Diyet</h1>
-      <div class="subtitle">İzinli (Kontrollü)</div>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
+        <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>Abur Cubur Diyet</h1>
+        <div class="subtitle">İzinli (Kontrollü)</div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">Geri</a>
+      <a href="saf.html" class="nav-link">Tamamen Şekersiz</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>İzin Panosu & Takvim</h2>
+      <p class="muted">Bu hafta için kalan haklar gösteriliyor. Sticker paletinden bir ürün seçip takvime tıklayarak hızlıca ekleyebilirsin. Takvim hücresine tıkla → modal açılır; mevcut stickerları kaldırma seçeneği de orada.</p>
+
+      <div class="card">
+        <div class="week-allowance" id="weekAllowance" style="margin-bottom:12px"></div>
+
+        <!-- Sticker paleti: buraya kendi PNG/SVG'lerini ekleyeceksin -->
+        <div class="sticker-palette" id="stickerPalette" style="margin-bottom:12px">
+          <strong style="margin-right:8px">Sticker Paleti:</strong>
+          <!-- JS ile doldurulacak -->
+          <button id="clearSelection" class="pill ghost" style="margin-left:12px">Seçimi Kaldır</button>
+          <div id="currentSelection" style="margin-left:8px;font-size:13px;color:var(--muted)"></div>
+        </div>
+
+        <div id="izinliCalendar" class="calendar-grid"></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="izinliReset" class="pill ghost">Periyotları sıfırla</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalBody"></div>
     </div>
   </div>
 
-  <nav class="navbar">
-    <a href="index.html" class="nav-link">Geri</a>
-    <a href="saf.html" class="nav-link">Tamamen Şekersiz</a>
-  </nav>
-</header>
+  <footer class="footer">Made with 🧁</footer>
 
-<main class="container">
-  <section class="panel">
-    <h2>İzin Panosu</h2>
-    <p class="muted">Her madde için butona tıklayarak kullanımınızı kaydedin. Sayfa localStorage ile çalışır.</p>
-
-    <div class="card allowances card-small" id="allowancesList"></div>
-
-    <div style="margin-top:12px">
-      <button id="izinliReset" class="pill ghost">Periyotları sıfırla</button>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">Made with 🧁</footer>
-
-<script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
