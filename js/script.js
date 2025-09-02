@@ -137,32 +137,33 @@
 
   /* ---------- Kutlama (mevcut modal) ---------- */
   function showCelebration(message) {
-    const cel = document.getElementById("celebrationModal");
-    const msg = document.getElementById("celebrationMessage");
-    const conf = document.getElementById("confettiContainer");
-    if (!cel || !msg || !conf) {
-      // Yedek: mesaj kutusu ile göster
-      showMessage("success", message);
-      return;
-    }
-    msg.textContent = message;
-    conf.innerHTML = "";
-    const colors = ["#FF7FB1", "#FFD7E9", "#FFD98F", "#C9879A", "#B56576", "#F4B0CB"];
-    for (let i = 0; i < 24; i++) {
-      const el = document.createElement("div");
-      el.className = "confetti";
-      el.style.left = 10 + Math.random() * 80 + "%";
-      el.style.background = colors[Math.floor(Math.random() * colors.length)];
-      el.style.animationDuration = 1.2 + Math.random() * 1.6 + "s";
-      el.style.top = -20 - Math.random() * 40 + "px";
-      conf.appendChild(el);
-    }
-    cel.classList.remove("hidden");
-    setTimeout(() => {
-      cel.classList.add("hidden");
-      conf.innerHTML = "";
-    }, 3200);
+  const cel = document.getElementById("celebrationModal");
+  const msg = document.getElementById("celebrationMessage");
+  const conf = document.getElementById("confettiContainer");
+  if (!cel || !msg || !conf) {
+    // Yedek: mesaj kutusu ile göster
+    showMessage("success", message);
+    return;
   }
+
+  // Satır sonlarını <br> ile değiştir
+  msg.innerHTML = message.replace(/\n/g, "<br>");
+
+  conf.innerHTML = "";
+  const colors = ["#FF7FB1", "#FFD7E9", "#FFD98F", "#C9879A", "#B56576", "#F4B0CB"];
+  for (let i = 0; i < 24; i++) {
+    const el = document.createElement("div");
+    el.className = "confetti";
+    el.style.left = 10 + Math.random() * 80 + "%";
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.animationDuration = 1.2 + Math.random() * 1.6 + "s";
+    el.style.top = -20 - Math.random() * 40 + "px";
+    conf.appendChild(el);
+  }
+
+  cel.classList.remove("hidden");
+}
+
   function bindCelebrationClose() {
     const btn = document.getElementById("celebrationClose");
     if (btn)
@@ -298,44 +299,30 @@
 
     // Ay'ı tamamla
     if (completeBtn) {
-      completeBtn.addEventListener("click", () => {
-        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-        let noSugarCount = 0;
-        let anyRed = false;
-        let anyEmptyPast = false;
+        completeBtn.addEventListener("click", () => {
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+            let noSugarCount = 0;
+            let hadSugarCount = 0;
 
-        for (let d = 1; d <= daysInMonth; d++) {
-          const key = formatYMD(new Date(viewYear, viewMonth, d));
-          const rec = state[key];
-          if (rec?.noSugar) noSugarCount++;
-          if (rec?.hadSugar) anyRed = true;
-          // geçmiş gün boş mu?
-          if (isPast(key) && !(rec?.noSugar || rec?.hadSugar)) anyEmptyPast = true;
-        }
+            for (let d = 1; d <= daysInMonth; d++) {
+            const key = formatYMD(new Date(viewYear, viewMonth, d));
+            const rec = state[key];
+            if (rec?.noSugar) noSugarCount++;
+            if (rec?.hadSugar) hadSugarCount++;
+            }
 
-        const stats = `Bu ay ${daysInMonth} günün ${noSugarCount} gününde şeker yememişsin.`;
-        if (noSugarCount === daysInMonth) {
-          const monthId = `saf-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
-          if (!celebrated.includes(monthId)) {
+            const stats = `Bu ay ${daysInMonth} günün:
+                            ✅ ${noSugarCount} gününde şeker YEMEDİN,
+                            ❌ ${hadSugarCount} gününde şeker YEDİN.`;
+
+            const monthId = `saf-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
+            if (!celebrated.includes(monthId)) {
             celebrated.push(monthId);
             saveCelebrated();
-          }
-          showCelebration(
-            `🏆 Harika! ${new Date(viewYear, viewMonth, 1).toLocaleString("tr-TR", {
-              month: "long",
-              year: "numeric",
-            })} ayını tamamen şekersiz tamamladın!\n\n${stats}`
-          );
-        } else {
-          // Uyarıyı HTML kutu olarak ver
-          let reason = "";
-          if (anyRed) reason += "• En az bir kırmızı (şeker yediğin) gün var.\n";
-          if (anyEmptyPast)
-            reason += "• Geçmişte boş gün(ler) var; geçmiş günler kilitli olduğu için dolduramazsın.\n";
-          if (!reason) reason = "• Tüm günleri şekersiz işaretlemen gerekiyor.\n";
-          showMessage("warning", `${stats}\n\nAyı tamamlamak için şartlar sağlanmadı:\n${reason}`);
-        }
-      });
+            }
+
+            showCelebration(`🎉 Ay tamamlandı!\n\n${stats}`);
+        });
     }
 
     if (prevBtn)
@@ -767,32 +754,46 @@
     }
 
     // Ayı bitir
-    if (finishBtn)
-      finishBtn.addEventListener("click", () => {
-        const violations = checkMonthlyWindows(viewYear, viewMonth);
-        if (violations.length === 0) {
-          const monthId = `izinli-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
-          if (!celebrated.includes(monthId)) {
+    if (finishBtn) {
+        finishBtn.addEventListener("click", () => {
+            const violations = checkMonthlyWindows(viewYear, viewMonth);
+            let message = `🍦 İzinli Plan — ${viewYear}/${viewMonth + 1}\n\n`;
+
+            Object.keys(st.allowances).forEach((key) => {
+            const a = st.allowances[key];
+
+            let total = 0;
+            Object.values(st.calendar).forEach((arr) => {
+                if (Array.isArray(arr)) {
+                arr.forEach((name) => {
+                    if (name === a.name) total++;
+                });
+                }
+            });
+            message += `• ${a.name}: ${total} kez\n`;
+            });
+
+            if (violations.length) {
+            message += `\n⚠️ Sınır aşımları:\n`;
+            violations.forEach((v) => {
+                const ws = v.windowStart.toLocaleDateString("tr-TR");
+                const we = v.windowEnd.toLocaleDateString("tr-TR");
+                message += `- ${v.name} (${ws} - ${we}) aralığında ${v.used}/${v.limit}\n`;
+            });
+            } else {
+            message += `\n👏 Tebrikler! Bu ay sınırları aşmadın.`;
+            }
+
+            const monthId = `izinli-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
+            if (!celebrated.includes(monthId)) {
             celebrated.push(monthId);
             saveCelebrated();
-          }
-          showCelebration(
-            `🎉 Tebrikler! ${new Date(viewYear, viewMonth, 1).toLocaleString("tr-TR", {
-              month: "long",
-              year: "numeric",
-            })} ayını **hiçbir dönemde sınırı aşmadan** tamamladın!`
-          );
-        } else {
-          // hangi pencereler aşıldı detaylı ver
-          let s = "Aşağıdaki dönemlerde izin limitleri aşıldı:\n\n";
-          violations.forEach((v) => {
-            const rs = v.windowStart.toLocaleDateString("tr-TR");
-            const re = v.windowEnd.toLocaleDateString("tr-TR");
-            s += `• ${v.name}: ${rs} – ${re} aralığında ${v.used}/${v.limit}\n`;
-          });
-          showMessage("error", s);
-        }
-      });
+            }
+
+            showCelebration(message);
+        });
+    }
+
 
     if (prevBtn)
       prevBtn.addEventListener("click", () => {
@@ -841,3 +842,4 @@
     if (page === "izinli") initIzinli();
   });
 })();
+
