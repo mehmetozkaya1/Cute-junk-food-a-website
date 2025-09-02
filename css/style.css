@@ -47,7 +47,7 @@ body {
 }
 
 /* -------- Genel Layout -------- */
-.container { max-width: 1000px; margin: 12px auto; padding: 12px; }
+.container { max-width: 1000px; width: 100%; margin: 12px auto; overflow-x: hidden; padding: 12px; }
 .panel {
   background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
   padding: 18px;
@@ -95,11 +95,12 @@ body {
 /* -------- Takvim -------- */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
   margin-top: 6px;
 }
 .day {
+  min-width: 0;
   position: relative;
   padding: 10px;
   border-radius: 10px;
@@ -343,4 +344,23 @@ body {
   .plans { flex-direction: column; }
   .calendar-grid { grid-template-columns: repeat(7,1fr); font-size: 13px; }
   .plan-card { flex-direction: row; }
+}
+
+@media (max-width:420px) {
+  .calendar-grid {
+    gap: 6px;
+  }
+  .day {
+    padding: 8px;
+    min-height: 58px;
+    font-size: 13px;
+  }
+  .day .date { font-size: 12px; }
+  .day .meta  { font-size: 11px; right:6px; bottom:6px; }
+
+  .brand h1 { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-link { padding: 6px 8px; font-size: 13px; }
+  .navbar { gap: 6px; }
+
+  .month-actions { gap: 8px; flex-wrap: wrap; }
 }
