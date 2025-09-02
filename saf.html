@@ -11,6 +11,7 @@
 
   <header class="topbar">
     <div class="brand">
+      <!-- logo... -->
       <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
         <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -29,8 +30,19 @@
 
   <main class="container">
     <section class="panel">
-      <h2>Takvim — Bu ay</h2>
-      <p class="muted">Günlere tıklayın: yeşil = şeker yemedin, kırmızı = şeker yedin.</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <button id="prevMonth" class="pill ghost">‹</button>
+          <div id="monthTitle" style="font-weight:700"></div>
+          <button id="nextMonth" class="pill ghost">›</button>
+        </div>
+
+        <div>
+          <button id="completeMonthBtn" class="pill">Ay'ı tamamla</button>
+        </div>
+      </div>
+
+      <p class="muted">Günlere tıklayın: yeşil = şeker yemedin, kırmızı = şeker yedin. Geçmiş günler kilitlidir (değişiklik yok).</p>
 
       <div class="card">
         <div id="safCalendar" class="calendar-grid"></div>
@@ -41,6 +53,15 @@
       </div>
     </section>
   </main>
+
+  <!-- kutlama modal (eğer yoksa ekleyin) -->
+  <div id="celebrationModal" class="celebration-modal hidden" aria-hidden="true">
+    <div class="celebration-content">
+      <button class="celebration-close" id="celebrationClose">✕</button>
+      <div id="celebrationMessage" class="celebration-message">🎉 Tebrikler! 🎉</div>
+      <div id="confettiContainer" class="confetti-container"></div>
+    </div>
+  </div>
 
   <footer class="footer">Made with 🧁</footer>
 

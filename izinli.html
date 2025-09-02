@@ -29,16 +29,25 @@
 
   <main class="container">
     <section class="panel">
-      <h2>İzin Panosu & Takvim</h2>
-      <p class="muted">Bu hafta için kalan haklar gösteriliyor. Sticker paletinden bir ürün seçip takvime tıklayarak hızlıca ekleyebilirsin. Takvim hücresine tıkla → modal açılır; mevcut stickerları kaldırma seçeneği de orada.</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <button id="prevMonth" class="pill ghost">‹</button>
+          <div id="monthTitle" style="font-weight:700"></div>
+          <button id="nextMonth" class="pill ghost">›</button>
+        </div>
+
+        <div>
+          <button id="finishMonthBtn" class="pill">Ayı bitir</button>
+        </div>
+      </div>
+
+      <p class="muted">Bu hafta için kalan haklar gösteriliyor. Geçmiş günler kilitlidir. Limit aşarken onay istenir.</p>
 
       <div class="card">
         <div class="week-allowance" id="weekAllowance" style="margin-bottom:12px"></div>
 
-        <!-- Sticker paleti: buraya kendi PNG/SVG'lerini ekleyeceksin -->
         <div class="sticker-palette" id="stickerPalette" style="margin-bottom:12px">
           <strong style="margin-right:8px">Sticker Paleti:</strong>
-          <!-- JS ile doldurulacak -->
           <button id="clearSelection" class="pill ghost" style="margin-left:12px">Seçimi Kaldır</button>
           <div id="currentSelection" style="margin-left:8px;font-size:13px;color:var(--muted)"></div>
         </div>
@@ -57,6 +66,15 @@
     <div class="modal-content">
       <button class="modal-close" id="modalClose">✕</button>
       <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- kutlama modal -->
+  <div id="celebrationModal" class="celebration-modal hidden" aria-hidden="true">
+    <div class="celebration-content">
+      <button class="celebration-close" id="celebrationClose">✕</button>
+      <div id="celebrationMessage" class="celebration-message">🎉 Tebrikler! 🎉</div>
+      <div id="confettiContainer" class="confetti-container"></div>
     </div>
   </div>
 
