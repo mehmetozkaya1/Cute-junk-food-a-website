@@ -1,11 +1,9 @@
-// js/script.js — Haftalık/14 günlük pencere denetimi + HTML mesaj/confirm + bugfixler
 (function () {
   const page = document.body.dataset.page || "index";
 
-  /* ---------- Tarih yardımcıları ---------- */
   function parseYMD(ymd) {
     const [y, m, d] = ymd.split("-").map(Number);
-    return new Date(y, m - 1, d, 0, 0, 0, 0); // local
+    return new Date(y, m - 1, d, 0, 0, 0, 0);
   }
   function formatYMD(date) {
     const y = date.getFullYear();
@@ -28,13 +26,12 @@
   function mondayOf(date) {
     const d = new Date(date);
     const day = d.getDay();
-    const diff = (day + 6) % 7; // Mon=0 ... Sun=6
+    const diff = (day + 6) % 7;
     d.setDate(d.getDate() - diff);
     d.setHours(0, 0, 0, 0);
     return d;
   }
 
-  /* ---------- Görsel yardımcı ---------- */
   function createIconImg(key, cls) {
     const img = document.createElement("img");
     if (cls) img.className = cls;
@@ -46,7 +43,6 @@
     return img;
   }
 
-  /* ---------- Mesaj & Confirm UI (alert/confirm yerine) ---------- */
   function ensureMessageUI() {
     if (document.getElementById("uxMessageOverlay")) return;
     const overlay = document.createElement("div");
@@ -92,7 +88,6 @@
     icon.textContent = emoji;
     msgText.textContent = text;
 
-    // Tek butonlu bilgi kutusu
     btns.innerHTML = `<button id="uxMessageClose" class="pill">Kapat</button>`;
     box.classList.remove("hidden");
     document.getElementById("uxMessageClose").onclick = () => {
@@ -135,34 +130,31 @@
     });
   }
 
-  /* ---------- Kutlama (mevcut modal) ---------- */
   function showCelebration(message) {
-  const cel = document.getElementById("celebrationModal");
-  const msg = document.getElementById("celebrationMessage");
-  const conf = document.getElementById("confettiContainer");
-  if (!cel || !msg || !conf) {
-    // Yedek: mesaj kutusu ile göster
-    showMessage("success", message);
-    return;
+    const cel = document.getElementById("celebrationModal");
+    const msg = document.getElementById("celebrationMessage");
+    const conf = document.getElementById("confettiContainer");
+    if (!cel || !msg || !conf) {
+      showMessage("success", message);
+      return;
+    }
+
+    msg.innerHTML = message.replace(/\n/g, "<br>");
+
+    conf.innerHTML = "";
+    const colors = ["#FF7FB1", "#FFD7E9", "#FFD98F", "#C9879A", "#B56576", "#F4B0CB"];
+    for (let i = 0; i < 24; i++) {
+      const el = document.createElement("div");
+      el.className = "confetti";
+      el.style.left = 10 + Math.random() * 80 + "%";
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.animationDuration = 1.2 + Math.random() * 1.6 + "s";
+      el.style.top = -20 - Math.random() * 40 + "px";
+      conf.appendChild(el);
+    }
+
+    cel.classList.remove("hidden");
   }
-
-  // Satır sonlarını <br> ile değiştir
-  msg.innerHTML = message.replace(/\n/g, "<br>");
-
-  conf.innerHTML = "";
-  const colors = ["#FF7FB1", "#FFD7E9", "#FFD98F", "#C9879A", "#B56576", "#F4B0CB"];
-  for (let i = 0; i < 24; i++) {
-    const el = document.createElement("div");
-    el.className = "confetti";
-    el.style.left = 10 + Math.random() * 80 + "%";
-    el.style.background = colors[Math.floor(Math.random() * colors.length)];
-    el.style.animationDuration = 1.2 + Math.random() * 1.6 + "s";
-    el.style.top = -20 - Math.random() * 40 + "px";
-    conf.appendChild(el);
-  }
-
-  cel.classList.remove("hidden");
-}
 
   function bindCelebrationClose() {
     const btn = document.getElementById("celebrationClose");
@@ -173,7 +165,6 @@
       });
   }
 
-  /* ---------- Ortak init ---------- */
   function initCommon() {
     const howBtn = document.getElementById("howItWorks");
     if (howBtn)
@@ -183,7 +174,6 @@
     bindCelebrationClose();
   }
 
-  /* ---------- Index ---------- */
   function initIndex() {
     document.querySelectorAll(".plan-card").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -195,7 +185,6 @@
     });
   }
 
-  /* ================= SAF (Tamamen Şekersiz) ================= */
   function initSaf() {
     const storageKey = "saf_calendar_v1";
     const celebratedKey = "saf_celebrated_months";
@@ -297,32 +286,31 @@
       }
     }
 
-    // Ay'ı tamamla
     if (completeBtn) {
-        completeBtn.addEventListener("click", () => {
-            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-            let noSugarCount = 0;
-            let hadSugarCount = 0;
+      completeBtn.addEventListener("click", () => {
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        let noSugarCount = 0;
+        let hadSugarCount = 0;
 
-            for (let d = 1; d <= daysInMonth; d++) {
-            const key = formatYMD(new Date(viewYear, viewMonth, d));
-            const rec = state[key];
-            if (rec?.noSugar) noSugarCount++;
-            if (rec?.hadSugar) hadSugarCount++;
-            }
+        for (let d = 1; d <= daysInMonth; d++) {
+          const key = formatYMD(new Date(viewYear, viewMonth, d));
+          const rec = state[key];
+          if (rec?.noSugar) noSugarCount++;
+          if (rec?.hadSugar) hadSugarCount++;
+        }
 
-            const stats = `Bu ay ${daysInMonth} günün:
+        const stats = `Bu ay ${daysInMonth} günün:
                             ✅ ${noSugarCount} gününde şeker YEMEDİN,
                             ❌ ${hadSugarCount} gününde şeker YEDİN.`;
 
-            const monthId = `saf-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
-            if (!celebrated.includes(monthId)) {
-            celebrated.push(monthId);
-            saveCelebrated();
-            }
+        const monthId = `saf-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
+        if (!celebrated.includes(monthId)) {
+          celebrated.push(monthId);
+          saveCelebrated();
+        }
 
-            showCelebration(`🎉 Ay tamamlandı!\n\n${stats}`);
-        });
+        showCelebration(`🎉 Ay tamamlandı!\n\n${stats}`);
+      });
     }
 
     if (prevBtn)
@@ -361,9 +349,8 @@
     render();
   }
 
-  /* ================= İZİNLİ (Kontrollü) ================= */
   function initIzinli() {
-    const storageKey = "izinli_state_v5"; // v5: pencere denetimi + mesaj UI
+    const storageKey = "izinli_state_v5";
     const celebratedKey = "izinli_celebrated_months";
     let st = JSON.parse(localStorage.getItem(storageKey) || "null");
     let celebrated = JSON.parse(localStorage.getItem(celebratedKey) || "[]");
@@ -373,12 +360,21 @@
         dondurma: { name: "Dondurma", limit: 3, period_days: 7 },
         cikolata: { name: "Çikolata", limit: 1, period_days: 7 },
         cips: { name: "Cips", limit: 1, period_days: 14 },
+        icecek: { name: "İçecek", limit: 2, period_days: 7 }
       },
       calendar: {},
       history: [],
     };
     if (!st) {
       st = JSON.parse(JSON.stringify(defaults));
+      localStorage.setItem(storageKey, JSON.stringify(st));
+    } else {
+      if (!st.allowances) st.allowances = {};
+      Object.keys(defaults.allowances).forEach((k) => {
+        if (!st.allowances[k]) st.allowances[k] = JSON.parse(JSON.stringify(defaults.allowances[k]));
+      });
+      if (!("calendar" in st)) st.calendar = {};
+      if (!("history" in st)) st.history = [];
       localStorage.setItem(storageKey, JSON.stringify(st));
     }
 
@@ -405,7 +401,6 @@
       localStorage.setItem(celebratedKey, JSON.stringify(celebrated));
     }
 
-    // Belirli aralıkta belirtilen türden toplam kullanımı say
     function countBetween(startDateStr, endDateStr, type) {
       let count = 0;
       const start = parseYMD(startDateStr);
@@ -421,24 +416,21 @@
       return count;
     }
 
-    /* ------- Ayı bitir: haftalık/14 günlük pencereleri tek tek kontrol ------- */
     function checkMonthlyWindows(year, month) {
       const monthStart = new Date(year, month, 1);
       const monthEnd = new Date(year, month + 1, 0);
 
-      const violations = []; // {name, windowStart, windowEnd, used, limit}
+      const violations = [];
 
       Object.keys(st.allowances).forEach((key) => {
         const a = st.allowances[key];
         const p = a.period_days;
 
-        // Pencereler haftalıkta her Pazartesi başlar (14 günlükte de Pazartesi bazlı bloklar)
         let winStart = mondayOf(monthStart);
         while (winStart <= monthEnd) {
           const winEnd = new Date(winStart);
           winEnd.setDate(winStart.getDate() + p - 1);
 
-          // Ay içi kesişimi al
           const rangeStart = winStart < monthStart ? monthStart : winStart;
           const rangeEnd = winEnd > monthEnd ? monthEnd : winEnd;
 
@@ -453,7 +445,6 @@
             });
           }
 
-          // Sonraki pencere
           winStart = new Date(winStart);
           winStart.setDate(winStart.getDate() + p);
         }
@@ -462,7 +453,6 @@
       return violations;
     }
 
-    /* ------- Üstte (bu hafta) kalan hakların görselleştirilmesi ------- */
     function renderWeekAllowance() {
       weekAllowanceEl.innerHTML = "";
       const today = new Date();
@@ -498,7 +488,6 @@
     }
 
     function renderPalette() {
-      // eski dinamikleri temizle
       Array.from(paletteEl.querySelectorAll(".palette-item")).forEach((n) => n.remove());
       Object.keys(st.allowances).forEach((k) => {
         const item = document.createElement("div");
@@ -573,7 +562,6 @@
         if (dayKey === todayKey) el.classList.add("today");
         if (isPast(dayKey)) el.classList.add("locked");
 
-        // mevcut sticker'lar
         const rec = st.calendar[dayKey];
         if (Array.isArray(rec) && rec.length) {
           const wrap = document.createElement("div");
@@ -602,7 +590,6 @@
           const sel = window.selectedKey || null;
           if (sel) {
             const a = st.allowances[sel];
-            // haftalık pencere (Mon-Sun) kullanımı
             const monday = mondayOf(dt);
             const sunday = new Date(monday);
             sunday.setDate(monday.getDate() + 6);
@@ -629,7 +616,6 @@
             }, 700);
             return;
           }
-          // seçim yoksa modal aç ve ekle/kaldır
           openModalForDay(dayKey);
         });
 
@@ -753,47 +739,45 @@
       if (modalCloseBtn) modalCloseBtn.onclick = () => modal.classList.add("hidden");
     }
 
-    // Ayı bitir
     if (finishBtn) {
-        finishBtn.addEventListener("click", () => {
-            const violations = checkMonthlyWindows(viewYear, viewMonth);
-            let message = `🍦 İzinli Plan — ${viewYear}/${viewMonth + 1}\n\n`;
+      finishBtn.addEventListener("click", () => {
+        const violations = checkMonthlyWindows(viewYear, viewMonth);
+        let message = `🍦 İzinli Plan — ${viewYear}/${viewMonth + 1}\n\n`;
 
-            Object.keys(st.allowances).forEach((key) => {
-            const a = st.allowances[key];
+        Object.keys(st.allowances).forEach((key) => {
+          const a = st.allowances[key];
 
-            let total = 0;
-            Object.values(st.calendar).forEach((arr) => {
-                if (Array.isArray(arr)) {
-                arr.forEach((name) => {
-                    if (name === a.name) total++;
-                });
-                }
-            });
-            message += `• ${a.name}: ${total} kez\n`;
-            });
-
-            if (violations.length) {
-            message += `\n⚠️ Sınır aşımları:\n`;
-            violations.forEach((v) => {
-                const ws = v.windowStart.toLocaleDateString("tr-TR");
-                const we = v.windowEnd.toLocaleDateString("tr-TR");
-                message += `- ${v.name} (${ws} - ${we}) aralığında ${v.used}/${v.limit}\n`;
-            });
-            } else {
-            message += `\n👏 Tebrikler! Bu ay sınırları aşmadın.`;
+          let total = 0;
+          Object.values(st.calendar).forEach((arr) => {
+            if (Array.isArray(arr)) {
+              arr.forEach((name) => {
+                if (name === a.name) total++;
+              });
             }
-
-            const monthId = `izinli-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
-            if (!celebrated.includes(monthId)) {
-            celebrated.push(monthId);
-            saveCelebrated();
-            }
-
-            showCelebration(message);
+          });
+          message += `• ${a.name}: ${total} kez\n`;
         });
-    }
 
+        if (violations.length) {
+          message += `\n⚠️ Sınır aşımları:\n`;
+          violations.forEach((v) => {
+            const ws = v.windowStart.toLocaleDateString("tr-TR");
+            const we = v.windowEnd.toLocaleDateString("tr-TR");
+            message += `- ${v.name} (${ws} - ${we}) aralığında ${v.used}/${v.limit}\n`;
+          });
+        } else {
+          message += `\n👏 Tebrikler! Bu ay sınırları aşmadın.`;
+        }
+
+        const monthId = `izinli-${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
+        if (!celebrated.includes(monthId)) {
+          celebrated.push(monthId);
+          saveCelebrated();
+        }
+
+        showCelebration(message);
+      });
+    }
 
     if (prevBtn)
       prevBtn.addEventListener("click", () => {
@@ -827,14 +811,12 @@
         showMessage("success", "Periyotlar sıfırlandı.");
       });
 
-    // İlk çizimler
     window.selectedKey = null;
     renderPalette();
     renderWeekAllowance();
     render();
   }
 
-  /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     initCommon();
     if (page === "index") initIndex();
@@ -842,4 +824,3 @@
     if (page === "izinli") initIzinli();
   });
 })();
-
