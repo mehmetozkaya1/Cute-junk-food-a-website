@@ -148,3 +148,109 @@ body{
 
 /* Küçük uyarı mesajı (past days locked) */
 .small-note{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+/* Mesaj Kutusu */
+.message-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.message-box.hidden {
+  display: none;
+}
+.message-content {
+  background: #fff0f6;
+  border: 2px solid #ff7fb1;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  font-family: "Poppins", sans-serif;
+}
+.message-content span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+.message-content button {
+  margin-top: 16px;
+  background: #ff7fb1;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.message-content button:hover {
+  background: #ff4d94;
+}
+
+/* ---- Mesaj Kutusu (Alert/Confirm yerine) ---- */
+.message-box {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.message-box.hidden { display: none; }
+
+.message-content {
+  background: #fff0f6;
+  border: 2px solid #ff7fb1;
+  border-radius: 16px;
+  padding: 20px 18px;
+  max-width: 420px;
+  width: calc(100% - 32px);
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: "Poppins", sans-serif;
+}
+.message-content #uxMessageIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+.message-content #uxMessageText {
+  white-space: pre-wrap;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #b10a50;
+}
+.message-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+}
+.message-content.is-success { background: #f6ffed; border-color: #b7eb8f; }
+.message-content.is-warning { background: #fffbe6; border-color: #ffe58f; }
+.message-content.is-error   { background: #fff1f0; border-color: #ffa39e; }
+.message-content.is-info    { background: #e6f7ff; border-color: #91d5ff; }
+
+.pill {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #ff7fb1;
+  color: #fff;
+}
+.pill.ghost {
+  background: #fff;
+  color: #ff7fb1;
+  border: 2px solid #ff7fb1;
+}
+.pill:hover { filter: brightness(0.95); }
