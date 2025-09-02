@@ -1,89 +1,142 @@
-:root{
-  --bg:#fff5fb;
-  --card:#fff;
-  --accent:#ff7fb1;
-  --accent-2:#ffd7e9;
-  --muted:#6f6f6f;
+:root {
+  --bg: #fff5fb;
+  --card: #fff;
+  --accent: #ff7fb1;
+  --accent-2: #ffd7e9;
+  --muted: #6f6f6f;
   --glass: rgba(255,255,255,0.7);
-  --radius:14px;
+  --radius: 14px;
   font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
   background:
     radial-gradient(circle at 10% 10%, #fff0f6, transparent 10%),
     radial-gradient(circle at 90% 80%, #fff7f9, transparent 10%),
     var(--bg);
-  color:#222;
-  -webkit-font-smoothing:antialiased;
-}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{border-radius:10px;box-shadow:0 8px 30px rgba(255,127,177,0.06)}
-.brand h1{font-size:18px;margin:0}
-.subtitle{font-size:12px;color:var(--muted)}
-.navbar{display:flex;gap:10px}
-.nav-link{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--accent);border:1px solid rgba(255,127,177,0.12);background:linear-gradient(180deg,#fff,#fff);font-weight:600}
-.container{max-width:1000px;margin:12px auto;padding:12px}
-.panel{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));padding:18px;border-radius:12px;margin-bottom:14px;box-shadow:0 6px 20px rgba(255,123,162,0.06)}
-.plans{display:flex;gap:12px;flex-wrap:wrap}
-.plan-card{flex:1;min-width:220px;background:var(--card);border-radius:12px;padding:18px;text-align:left;cursor:pointer;border:2px solid transparent;transition:all .18s;box-shadow:0 8px 24px rgba(255,127,177,0.06);display:flex;gap:12px;align-items:flex-start}
-.plan-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(255,127,177,0.12)}
-.icon{font-size:34px}
-.plan-head h3{margin:0;font-size:18px}
-.plan-desc{margin:6px 0 0 0;color:var(--muted);font-weight:600;background:linear-gradient(90deg, rgba(255,127,177,0.03), rgba(255,127,177,0.00));padding:8px;border-radius:8px}
-.hint{color:var(--muted);margin-top:8px}
-.card{background:var(--card);border-radius:12px;padding:12px}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:6px}
-.day{position:relative;padding:10px;border-radius:10px;min-height:74px;background:linear-gradient(180deg,#fff,#fff);border:1px dashed rgba(0,0,0,0.04);cursor:pointer}
-.day .date{font-size:13px;color:var(--muted)}
-.day .meta{position:absolute;right:8px;bottom:8px;font-size:12px}
-.day.succ{background:linear-gradient(180deg,#f5fffb,#e6fff7);border:1px solid rgba(80,200,160,0.12)}
-.day.warn{background:linear-gradient(180deg,#fff7f0,#fff0e6);border:1px solid rgba(255,170,120,0.12)}
-.day.fail{background:linear-gradient(180deg,#fff0f5,#ffe6ef);border:1px solid rgba(255,123,162,0.12)}
-.day.other-month{opacity:0.45;background:transparent;border:1px dashed rgba(0,0,0,0.02);cursor:default}
-.day.today{outline:2px dashed rgba(255,127,177,0.2)}
-.allowance-item{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;background:linear-gradient(180deg,var(--accent-2),#fff);margin-bottom:8px}
-.pill{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:600}
-.pill.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,127,177,0.12)}
-.muted{color:var(--muted);font-size:13px}
-.footer{text-align:center;padding:18px;color:var(--muted);font-size:13px}
-
-/* sticker / week-allowance */
-.week-allowance{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.allow-block{background:linear-gradient(180deg,#fff,#fff);padding:8px;border-radius:10px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(255,127,177,0.06)}
-.allow-icons{display:flex;gap:6px;align-items:center}
-.sticker{width:28px;height:28px;display:inline-block}
-.sticker.small{width:20px;height:20px}
-
-/* sticker palette */
-.sticker-palette{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));box-shadow:0 6px 18px rgba(255,127,177,0.04)}
-.palette-item{display:flex;align-items:center;gap:6px;padding:6px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .12s}
-.palette-item:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(255,127,177,0.06)}
-.palette-item.selected{border:2px solid var(--accent);background:linear-gradient(180deg, rgba(255,127,177,0.04), rgba(255,127,177,0.02))}
-
-/* modal */
-.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.18),rgba(0,0,0,0.12));backdrop-filter:blur(4px);}
-.modal.hidden{display:none}
-.modal-content{width:460px;max-width:92%;background:var(--card);padding:18px;border-radius:12px;position:relative}
-.modal-close{position:absolute;right:12px;top:8px;border:none;background:transparent;font-size:18px;cursor:pointer}
-
-@media (max-width:900px){
-  .plans{flex-direction:column}
-  .calendar-grid{grid-template-columns:repeat(7,1fr);font-size:13px}
-  .plan-card{flex-direction:row}
+  color: #222;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ------ Kilitli gün stili ------ */
+/* -------- Header -------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo {
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(255,127,177,0.06);
+}
+.brand h1 { font-size: 18px; margin: 0; }
+.subtitle { font-size: 12px; color: var(--muted); }
+.navbar { display: flex; gap: 10px; }
+.nav-link {
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--accent);
+  border: 1px solid rgba(255,127,177,0.12);
+  background: linear-gradient(180deg,#fff,#fff);
+  font-weight: 600;
+}
+
+/* -------- Genel Layout -------- */
+.container { max-width: 1000px; margin: 12px auto; padding: 12px; }
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 20px rgba(255,123,162,0.06);
+}
+.card { background: var(--card); border-radius: 12px; padding: 12px; }
+.muted { color: var(--muted); font-size: 13px; }
+.footer { text-align: center; padding: 18px; color: var(--muted); font-size: 13px; }
+
+/* -------- Plan Kartları -------- */
+.plans { display: flex; gap: 12px; flex-wrap: wrap; }
+.plan-card {
+  flex: 1;
+  min-width: 220px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: left;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all .18s;
+  box-shadow: 0 8px 24px rgba(255,127,177,0.06);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(255,127,177,0.12);
+}
+.icon { font-size: 34px; }
+.plan-head h3 { margin: 0; font-size: 18px; }
+.plan-desc {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(255,127,177,0.03), rgba(255,127,177,0.00));
+  padding: 8px;
+  border-radius: 8px;
+}
+.hint { color: var(--muted); margin-top: 8px; }
+
+/* -------- Takvim -------- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.day {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 74px;
+  background: #fff;
+  border: 1px dashed rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+.day .date { font-size: 13px; color: var(--muted); }
+.day .meta { position: absolute; right: 8px; bottom: 8px; font-size: 12px; }
+.day.succ {
+  background: linear-gradient(180deg,#f5fffb,#e6fff7);
+  border: 1px solid rgba(80,200,160,0.12);
+}
+.day.warn {
+  background: linear-gradient(180deg,#fff7f0,#fff0e6);
+  border: 1px solid rgba(255,170,120,0.12);
+}
+.day.fail {
+  background: linear-gradient(180deg,#fff0f5,#ffe6ef);
+  border: 1px solid rgba(255,123,162,0.12);
+}
+.day.other-month {
+  opacity: 0.45;
+  background: transparent;
+  border: 1px dashed rgba(0,0,0,0.02);
+  cursor: default;
+}
+.day.today { outline: 2px dashed rgba(255,127,177,0.2); }
 .day.locked {
   cursor: not-allowed;
   opacity: 0.55;
   filter: grayscale(0.05);
-  pointer-events: none; /* güvenlik - tıklamaları engelle */
+  pointer-events: none;
   position: relative;
 }
-.day.locked::after{
+.day.locked::after {
   content: "🔒";
   position: absolute;
   top: 6px;
@@ -92,20 +145,119 @@ body{
   opacity: 0.9;
 }
 
-/* ------ Kutlama modal + konfeti ------ */
-.celebration-modal{
+/* -------- Limit Kutuları -------- */
+.week-allowance {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.allow-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fff0f6;
+  border: 2px solid #ffb6c1;
+  box-shadow: 0 4px 10px rgba(255,127,177,0.08);
+  transition: transform 0.2s;
+}
+.allow-block:hover { transform: scale(1.05); }
+.allow-icons { display: flex; gap: 6px; align-items: center; }
+.sticker { width: 28px; height: 28px; display: inline-block; }
+.sticker.small { width: 20px; height: 20px; }
+
+/* -------- Sticker Paleti -------- */
+.sticker-palette {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fff);
+  box-shadow: 0 6px 18px rgba(255,127,177,0.04);
+}
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all .12s;
+}
+.palette-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(255,127,177,0.06);
+}
+.palette-item.selected {
+  border: 2px solid var(--accent);
+  background: linear-gradient(180deg, rgba(255,127,177,0.04), rgba(255,127,177,0.02));
+}
+
+/* -------- Butonlar -------- */
+.pill {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+}
+.pill.ghost {
+  background: #fff;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+.pill:hover { filter: brightness(0.95); }
+
+/* -------- Modal -------- */
+.modal {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.18));
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(4px);
+}
+.modal.hidden { display: none; }
+.modal-content {
+  width: 460px;
+  max-width: 92%;
+  background: var(--card);
+  padding: 18px;
+  border-radius: 12px;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* -------- Kutlama Modal -------- */
+.celebration-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
   z-index: 1400;
   backdrop-filter: blur(4px);
 }
-.celebration-modal.hidden{ display: none; }
-.celebration-content{
-  background: white;
+.celebration-modal.hidden { display: none; }
+.celebration-content {
+  background: #fff;
   padding: 20px;
   border-radius: 16px;
   max-width: 520px;
@@ -114,7 +266,7 @@ body{
   box-shadow: 0 12px 40px rgba(255,127,177,0.12);
   position: relative;
 }
-.celebration-close{
+.celebration-close {
   position: absolute;
   right: 12px;
   top: 10px;
@@ -123,21 +275,18 @@ body{
   font-size: 18px;
   cursor: pointer;
 }
-.celebration-message{
+.celebration-message {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 14px;
   color: var(--accent);
 }
-
-/* Confetti: basit düşen renkli parçalar */
-.confetti-container{ position: relative; height: 140px; overflow: visible; pointer-events: none; }
+.confetti-container { position: relative; height: 140px; overflow: visible; pointer-events: none; }
 .confetti {
   position: absolute;
   width: 10px;
   height: 18px;
   opacity: 0.95;
-  transform-origin: center;
   border-radius: 2px;
   animation: confettiFall linear forwards;
 }
@@ -146,55 +295,7 @@ body{
   100% { transform: translateY(220px) rotate(360deg); opacity:0; }
 }
 
-/* Küçük uyarı mesajı (past days locked) */
-.small-note{ font-size:13px; color:var(--muted); margin-top:8px; }
-
-/* Mesaj Kutusu */
-.message-box {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-.message-box.hidden {
-  display: none;
-}
-.message-content {
-  background: #fff0f6;
-  border: 2px solid #ff7fb1;
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 320px;
-  text-align: center;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  font-family: "Poppins", sans-serif;
-}
-.message-content span {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 12px;
-}
-.message-content button {
-  margin-top: 16px;
-  background: #ff7fb1;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.message-content button:hover {
-  background: #ff4d94;
-}
-
-/* ---- Mesaj Kutusu (Alert/Confirm yerine) ---- */
+/* -------- Message Box -------- */
 .message-box {
   position: fixed;
   inset: 0;
@@ -205,17 +306,15 @@ body{
   z-index: 9999;
 }
 .message-box.hidden { display: none; }
-
 .message-content {
   background: #fff0f6;
-  border: 2px solid #ff7fb1;
+  border: 2px solid var(--accent);
   border-radius: 16px;
-  padding: 20px 18px;
+  padding: 20px;
   max-width: 420px;
   width: calc(100% - 32px);
   text-align: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  font-family: "Poppins", sans-serif;
 }
 .message-content #uxMessageIcon {
   font-size: 2rem;
@@ -239,18 +338,9 @@ body{
 .message-content.is-error   { background: #fff1f0; border-color: #ffa39e; }
 .message-content.is-info    { background: #e6f7ff; border-color: #91d5ff; }
 
-.pill {
-  border: none;
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-weight: 700;
-  cursor: pointer;
-  background: #ff7fb1;
-  color: #fff;
+/* -------- Responsive -------- */
+@media (max-width:900px) {
+  .plans { flex-direction: column; }
+  .calendar-grid { grid-template-columns: repeat(7,1fr); font-size: 13px; }
+  .plan-card { flex-direction: row; }
 }
-.pill.ghost {
-  background: #fff;
-  color: #ff7fb1;
-  border: 2px solid #ff7fb1;
-}
-.pill:hover { filter: brightness(0.95); }
