@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abur Cubur Diyet — İzinli</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="izinli">
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="logo" width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#ffd7e9" />
+      <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#ff7fb1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div>
+      <h1>Abur Cubur Diyet</h1>
+      <div class="subtitle">İzinli (Kontrollü)</div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-link">Geri</a>
+    <a href="saf.html" class="nav-link">Tamamen Şekersiz</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="panel">
+    <h2>İzin Panosu</h2>
+    <p class="muted">Her madde için butona tıklayarak kullanımınızı kaydedin. Sayfa localStorage ile çalışır.</p>
+
+    <div class="card allowances card-small" id="allowancesList"></div>
+
+    <div style="margin-top:12px">
+      <button id="izinliReset" class="pill ghost">Periyotları sıfırla</button>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">Made with 🧁</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
